@@ -1,0 +1,6 @@
+#!/bin/bash
+set -o xtrace
+
+
+/etc/eks/bootstrap.sh --apiserver-endpoint "{{ eks_endpoint }}" {{ enable_docker_bridge }} --b64-cluster-ca "{{ eks_cluster_ca }}" "eks-{{ environment }}" --kubelet-extra-args '--node-labels=componentType="{{ component_type }}",Environment="{{ environment }}",nodeGroup="{{ node_group }}" {{ taint }}'
+

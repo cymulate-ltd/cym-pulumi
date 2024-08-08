@@ -1,0 +1,10 @@
+name: cymulate
+runtime:
+  name: python
+  options:
+    virtualenv: ../../../../venv
+options:
+  refresh: always
+backend:
+  url: s3://<bucket-name>/pulumi/clouds/aws/accounts/account-<account-number>?region=us-east-1
+description: main us-east-1 pulumi project

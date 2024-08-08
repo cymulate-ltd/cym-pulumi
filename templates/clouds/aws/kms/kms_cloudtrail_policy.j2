@@ -1,0 +1,32 @@
+{
+    "Version": "2012-10-17",
+    "Id": "{{ trail_name }}",
+    "Statement": [
+        {
+            "Sid": "Enable IAM User Permissions",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::{{ account }}:root"
+            },
+            "Action": "kms:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "Allow CloudTrail to encrypt logs",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "cloudtrail.amazonaws.com"
+            },
+            "Action": "kms:GenerateDataKey*",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:SourceArn": "arn:aws:cloudtrail:{{ region }}:{{ account }}:trail/{{ trail_name }}"
+                },
+                "StringLike": {
+                    "kms:EncryptionContext:aws:cloudtrail:arn": "arn:aws:cloudtrail:*:{{ account }}:trail/*"
+                }
+            }
+        }
+    ]
+}

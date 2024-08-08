@@ -1,0 +1,30 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                {% for bucket in buckets %}
+                "{{ bucket.resource_arn }}"{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:AbortMultipartUpload",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                {% for bucket in buckets %}
+                "{{ bucket.resource_arn }}{{ bucket.bucket_prefix }}"{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        }
+    ]
+}

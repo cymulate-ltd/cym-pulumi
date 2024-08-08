@@ -1,0 +1,28 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "sqs:SendMessage",
+      "Resource": "arn:aws:sqs:{{ region }}:{{ aws_account }}:{{ queue_name }}",
+      "Condition": {
+        "ArnLike": {
+          "aws:SourceArn": "{{ source_arn }}"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "glue.amazonaws.com"
+      },
+      "Action": [
+        "sqs:ReceiveMessage"
+      ],
+      "Resource": "arn:aws:sqs:{{ region }}:{{ aws_account }}:{{ queue_name }}"
+    }
+  ]
+}

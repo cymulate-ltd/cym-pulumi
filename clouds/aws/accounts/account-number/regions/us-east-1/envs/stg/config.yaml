@@ -1,0 +1,5 @@
+# This config will be inherited by subfolders projects
+
+env: stg
+region: 'us-east-1'
+aws_account: '<account-number>'
