@@ -1,0 +1,29 @@
+{
+  "Version": "2012-10-17",
+  "Id": "EC2InterruptionPolicy",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "events.amazonaws.com",
+          "sqs.amazonaws.com"
+        ]
+      },
+      "Action": "sqs:SendMessage",
+      "Resource": "arn:aws:sqs:{{ region }}:{{ aws_account }}:{{ queue_name }}"
+    },
+    {
+      "Sid": "DenyHTTP",
+      "Effect": "Deny",
+      "Action": "sqs:*",
+      "Resource": "arn:aws:sqs:{{ region }}:{{ aws_account }}:{{ queue_name }}",
+      "Condition": {
+        "Bool": {
+          "aws:SecureTransport": "false"
+        }
+      },
+      "Principal": "*"
+    }
+  ]
+}

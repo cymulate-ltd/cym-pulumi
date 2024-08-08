@@ -1,0 +1,76 @@
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "untag old releases",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": [
+                    "0.0.0-release"
+                ],
+                "countType": "imageCountMoreThan",
+                "countNumber": 3
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 2,
+            "description": "untag old prod releases",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": [
+                    "0.0.0-202"
+                ],
+                "countType": "imageCountMoreThan",
+                "countNumber": 10
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 3,
+            "description": "remove old git tags",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": [
+                    "202"
+                ],
+                "countType": "imageCountMoreThan",
+                "countNumber": 10
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 4,
+            "description": "untag old proj-dev",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": [
+                    "0.0.0-proj-dev"
+                ],
+                "countType": "imageCountMoreThan",
+                "countNumber": 10
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 5,
+            "description": "Remove all unused images dangling",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "imageCountMoreThan",
+                "countNumber": 1
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}

@@ -1,0 +1,4 @@
+secretsprovider: awskms://alias/pulumi?region=us-east-1
+encryptedkey: <code>
+config:
+  aws:region: us-east-1
